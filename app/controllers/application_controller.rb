@@ -1,6 +1,7 @@
 require './config/environment'
-
+# require "rack-flash"
 class ApplicationController < Sinatra::Base
+  # use Rack::Flash
 
   configure do
     set :public_folder, 'public'
@@ -14,16 +15,23 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do 
-    erb :signup
+    if !Helpers.is_logged_in?(session)
+        erb :signup
+    end
   end
 
   post '/signup' do 
     
-    if params[:username] && params[:email] && params[:password]
-      @new_user = User.new(username: params[:username], email: params[:email], password: params[:password])
+    if params[:username]!= "" && params[:email] != "" && params[:password] != ""
+      # binding.pry
+
+      @new_user = User.new(username: params[:username], email: params[:email], password_digest: params[:password])
       @new_user.save
       session[:user_id] = @new_user.id
       redirect '/tweets'
+    else
+      # flash[:message] = "Please enter ALL feilds."
+      redirect to '/signup'
     end
     
 
