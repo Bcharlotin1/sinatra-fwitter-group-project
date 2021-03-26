@@ -3,7 +3,11 @@
         <%@tweets.each do |tweet|%>
         <h2><%=tweet.content%><h2>
         <%end%>
-
+<br>
+<form action="/logout" method="post">
+  Logout?
+  <input id ="Submit" type="submit" value="submit">
+</form>
 
 
 
