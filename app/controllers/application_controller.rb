@@ -18,17 +18,21 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/signup' do 
-  end
-    # @user = User.find_by(username: params[:username]
     
-    # if params[:username] && params[:email] && params[:password]
-    #   if @user
-    #     session[:user_id] = @user.id
-    #     redirect '/tweet'
-    #   end
-    #   end
-    # end
+    if params[:username] && params[:email] && params[:password]
+      @new_user = User.new(username: params[:username], email: params[:email], password: params[:password])
+      @new_user.save
+      session[:user_id] = @new_user.id
+      redirect '/tweets'
+    end
+    
+
+  end
+
   
+    # @user = User.find_by(username: params[:username])
+    
+   
 
 
 end
