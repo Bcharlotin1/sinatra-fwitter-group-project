@@ -4,9 +4,7 @@ class TweetsController < ApplicationController
         if Helpers.is_logged_in?(session)
             @user = Helpers.current_user(session)
             @tweets = Tweet.all
-
-            # binding.pry
-                erb :"/tweets/tweets"
+            erb :"/tweets/tweets"
         else
             redirect "/login"
         end
@@ -18,13 +16,12 @@ class TweetsController < ApplicationController
             @user = User.find(params[:user_id])
             @user.tweets << @new_tweet
             @user.save
-            
-
         else
             redirect "/tweets/new"
         end
      
     end
+
     get "/tweets/new" do 
         if Helpers.is_logged_in?(session)
             @user = Helpers.current_user(session)
@@ -43,9 +40,8 @@ class TweetsController < ApplicationController
             else
                 redirect "/tweets"
             end
-        
         else   
-            redirect "/login"
+            redirect to "/login"
         end
     
     end
@@ -58,7 +54,6 @@ class TweetsController < ApplicationController
                 @tweet.update(content: params[:content])
                 redirect "/tweets/#{@tweet.id}"
             else
-      
                 redirect "/tweets/#{@tweet.id}/edit"
             end
         else

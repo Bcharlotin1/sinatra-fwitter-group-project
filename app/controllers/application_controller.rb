@@ -39,7 +39,7 @@ class ApplicationController < Sinatra::Base
   end
 
   
-    # @user = User.find_by(username: params[:username])
+ 
     
    
 
